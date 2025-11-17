@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personality Insights</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="app-header">
+        <div class="header-content">
+            <div class="logo">🧠 Personality Insights</div>
+            <p class="tagline">Unlock Your Potential Through Self-Discovery</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Welcome Screen -->
+        <div id="welcome-screen" class="screen active">
+            <div class="content">
+                <div class="welcome-hero">
+                    <h1>Discover Your True Self</h1>
+                    <p class="hero-description">Take a scientifically-backed personality assessment based on the Big Five (OCEAN) model - the gold standard in personality psychology used by researchers worldwide.</p>
+                </div>
+                
+                <div class="features">
+                    <div class="feature-item">
+                        <span class="feature-icon">📊</span>
+                        <h3>Evidence-Based</h3>
+                        <p>Grounded in decades of psychological research</p>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">🎯</span>
+                        <h3>Personalized Insights</h3>
+                        <p>Get tailored recommendations for growth</p>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">⚡</span>
+                        <h3>Quick & Easy</h3>
+                        <p>30 questions in just 5-7 minutes</p>
+                    </div>
+                </div>
+
+                <div class="cta-section">
+                    <p class="subtitle">Ready to begin your journey of self-discovery?</p>
+                    <button class="btn-primary" onclick="startAssessment()">Start Assessment</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Questions Screen -->
+        <div id="questions-screen" class="screen">
+            <div class="progress-bar">
+                <div id="progress" class="progress-fill"></div>
+            </div>
+            <div class="content">
+                <div id="question-container">
+                    <p class="question-number" id="question-number"></p>
+                    <h2 id="question-text"></h2>
+                    <div class="options">
+                        <button class="option-btn" onclick="selectAnswer(1)">Strongly Disagree</button>
+                        <button class="option-btn" onclick="selectAnswer(2)">Disagree</button>
+                        <button class="option-btn" onclick="selectAnswer(3)">Neutral</button>
+                        <button class="option-btn" onclick="selectAnswer(4)">Agree</button>
+                        <button class="option-btn" onclick="selectAnswer(5)">Strongly Agree</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results-screen" class="screen">
+            <div class="content">
+                <h1>Your Personality Profile</h1>
+                <p class="results-intro">Based on your responses, here's your comprehensive personality analysis with personalized growth recommendations.</p>
+                <div id="results-container"></div>
+                <button class="btn-secondary" onclick="restartAssessment()">Take Again</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>About This Assessment</h4>
+                <p>This tool uses the Big Five personality model (OCEAN), measuring Openness, Conscientiousness, Extraversion, Agreeableness, and Emotional Stability. These traits are among the most scientifically validated dimensions of personality.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Understanding Your Results</h4>
+                <p>Your scores reflect tendencies, not limitations. Personality traits exist on a spectrum, and all levels have unique strengths. Use these insights as a starting point for personal growth and self-awareness.</p>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="footer-credits">
+                <p>Developed with ❤️ by <strong>Vadiraj Bhatt</strong></p>
+                <p class="footer-note">For educational and self-improvement purposes. Not a substitute for professional psychological assessment.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
