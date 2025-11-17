@@ -60,14 +60,25 @@
             </div>
             <div class="content">
                 <div id="question-container">
-                    <p class="question-number" id="question-number"></p>
-                    <h2 id="question-text"></h2>
-                    <div class="options">
-                        <button class="option-btn" onclick="selectAnswer(1)">Strongly Disagree</button>
-                        <button class="option-btn" onclick="selectAnswer(2)">Disagree</button>
-                        <button class="option-btn" onclick="selectAnswer(3)">Neutral</button>
-                        <button class="option-btn" onclick="selectAnswer(4)">Agree</button>
-                        <button class="option-btn" onclick="selectAnswer(5)">Strongly Agree</button>
+                    <div class="question-header">
+                        <div class="question-number-large" id="question-number-large"></div>
+                        <p class="question-number" id="question-number"></p>
+                    </div>
+                    <h2 id="question-text" class="question-text-animated"></h2>
+                    <div class="options" id="options-container">
+                        <button class="option-btn" data-value="1">Strongly Disagree</button>
+                        <button class="option-btn" data-value="2">Disagree</button>
+                        <button class="option-btn" data-value="3">Neutral</button>
+                        <button class="option-btn" data-value="4">Agree</button>
+                        <button class="option-btn" data-value="5">Strongly Agree</button>
+                    </div>
+                    <div class="navigation-buttons">
+                        <button class="btn-nav btn-back" id="back-btn" onclick="goBack()" disabled>
+                            ← Back
+                        </button>
+                        <button class="btn-nav btn-next" id="next-btn" onclick="goNext()" disabled>
+                            Next →
+                        </button>
                     </div>
                 </div>
             </div>

@@ -49,6 +49,7 @@ function startAssessment() {
     answers = [];
     showScreen('questions-screen');
     displayQuestion();
+    setupOptionListeners();
 }
 
 function showScreen(screenId) {
@@ -58,23 +59,87 @@ function showScreen(screenId) {
     document.getElementById(screenId).classList.add('active');
 }
 
+function setupOptionListeners() {
+    const optionButtons = document.querySelectorAll('.option-btn');
+    optionButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            selectAnswer(parseInt(this.getAttribute('data-value')));
+        });
+    });
+}
+
 function displayQuestion() {
     const question = questions[currentQuestion];
-    document.getElementById('question-number').textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
-    document.getElementById('question-text').textContent = question.text;
     
+    // Update question number and text with animation
+    document.getElementById('question-number-large').textContent = currentQuestion + 1;
+    document.getElementById('question-number').textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+    
+    const questionText = document.getElementById('question-text');
+    questionText.classList.remove('question-text-animated');
+    void questionText.offsetWidth; // Trigger reflow
+    questionText.classList.add('question-text-animated');
+    questionText.textContent = question.text;
+    
+    // Update progress
     const progress = ((currentQuestion) / questions.length) * 100;
     document.getElementById('progress').style.width = progress + '%';
+    
+    // Clear previous selection
+    document.querySelectorAll('.option-btn').forEach(btn => {
+        btn.classList.remove('selected');
+    });
+    
+    // Restore previous answer if exists
+    if (answers[currentQuestion] !== undefined) {
+        const savedAnswer = answers[currentQuestion];
+        const question = questions[currentQuestion];
+        const originalScore = question.reverse ? (6 - savedAnswer.score) : savedAnswer.score;
+        const selectedBtn = document.querySelector(`.option-btn[data-value="${originalScore}"]`);
+        if (selectedBtn) {
+            selectedBtn.classList.add('selected');
+        }
+        document.getElementById('next-btn').disabled = false;
+    } else {
+        document.getElementById('next-btn').disabled = true;
+    }
+    
+    // Update back button state
+    document.getElementById('back-btn').disabled = currentQuestion === 0;
 }
 
 function selectAnswer(score) {
     const question = questions[currentQuestion];
     const finalScore = question.reverse ? (6 - score) : score;
     
-    answers.push({
+    // Store answer
+    answers[currentQuestion] = {
         trait: question.trait,
         score: finalScore
+    };
+    
+    // Highlight selected option
+    document.querySelectorAll('.option-btn').forEach(btn => {
+        btn.classList.remove('selected');
     });
+    const selectedBtn = document.querySelector(`.option-btn[data-value="${score}"]`);
+    if (selectedBtn) {
+        selectedBtn.classList.add('selected');
+    }
+    
+    // Enable next button
+    document.getElementById('next-btn').disabled = false;
+    
+    // Auto-advance after a short delay
+    setTimeout(() => {
+        goNext();
+    }, 400);
+}
+
+function goNext() {
+    if (answers[currentQuestion] === undefined) {
+        return;
+    }
     
     currentQuestion++;
     
@@ -82,6 +147,13 @@ function selectAnswer(score) {
         displayQuestion();
     } else {
         calculateResults();
+    }
+}
+
+function goBack() {
+    if (currentQuestion > 0) {
+        currentQuestion--;
+        displayQuestion();
     }
 }
 
